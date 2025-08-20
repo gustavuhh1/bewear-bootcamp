@@ -92,7 +92,7 @@ export default function SignInForm() {
               />
             </CardContent>
             <CardFooter>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Entrar</Button>
             </CardFooter>
           </form>
         </Form>

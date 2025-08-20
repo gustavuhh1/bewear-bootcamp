@@ -21,6 +21,10 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -46,6 +50,9 @@ const formSchema = z
 type FormValues = z.infer<typeof formSchema>;
 
 export default function SignUpForm() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,9 +63,28 @@ export default function SignUpForm() {
     },
   });
 
-  function onSubmit(values: FormValues) {
-    console.log("Formulario validado");
-    console.log(values);
+  async function onSubmit(values: FormValues) {
+    setIsLoading(true);
+    await authClient.signUp.email({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: (error) => {
+          if (error.error.code === "USER_ALREADY_EXISTS") {
+            toast.error("Email já cadastrado.");
+            form.setError("email", {
+              message: "E-mail já cadastrado.",
+            });
+          }
+          toast.error(error.error.message);
+        },
+      },
+    });
+    setIsLoading(false);
   }
 
   return (
@@ -142,7 +168,9 @@ export default function SignUpForm() {
               />
             </CardContent>
             <CardFooter>
-              <Button type="submit">Criar conta</Button>
+              <Button disabled={isLoading} type="submit">
+                Criar conta
+              </Button>
             </CardFooter>
           </form>
         </Form>
