@@ -100,7 +100,7 @@ export default function SignUpForm() {
 
   return (
     <>
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>Criar conta</CardTitle>
           <CardDescription>Crie uma conta para continuar</CardDescription>
