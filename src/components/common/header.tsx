@@ -3,13 +3,19 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { LogInIcon, LogOutIcon, MenuIcon } from "lucide-react";
-import { SheetContent, SheetHeader, SheetTitle, SheetTrigger, Sheet } from "../ui/sheet";
+import {
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  Sheet,
+} from "../ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export const Header = () => {
-    const {data: session} = authClient.useSession();
+  const { data: session } = authClient.useSession();
 
   return (
     <header className="flex items-center justify-between p-5">
@@ -17,7 +23,7 @@ export const Header = () => {
       <div className="flex items-center">
         <Button variant={"outline"} size={"icon"}>
           <Sheet>
-            <SheetTrigger asChild>
+            <SheetTrigger asChild={true}>
               <Button variant="outline" size="icon">
                 <MenuIcon />
               </Button>
@@ -37,10 +43,14 @@ export const Header = () => {
                           />
                           <AvatarFallback>
                             {session?.user?.name
-                              ? session.user.name.split(" ")[0]?.[0]?.toUpperCase()
+                              ? session.user.name
+                                  .split(" ")[0]?.[0]
+                                  ?.toUpperCase()
                               : ""}
                             {session?.user?.name
-                              ? session.user.name.split(" ")[1]?.[0]?.toUpperCase()
+                              ? session.user.name
+                                  .split(" ")[1]?.[0]
+                                  ?.toUpperCase()
                               : ""}
                           </AvatarFallback>
                         </Avatar>
