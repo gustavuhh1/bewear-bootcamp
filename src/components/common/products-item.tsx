@@ -19,7 +19,7 @@ export function ProductsItem({
 
   return (
     <Link
-      href={`product-variant/${firstVariant.slug}`}
+      href={`/product-variant/${firstVariant.slug}`}
       className="flex flex-col gap-4"
     >
       <Image
