@@ -13,6 +13,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Cart from "./cart";
 
 export const Header = () => {
   const { data: session } = authClient.useSession();
@@ -22,8 +23,7 @@ export const Header = () => {
       <Link href="/" >
       <Image src={"/logo.svg"} alt="BEWEAR" width={100} height={26.14} />
       </Link>
-      <div className="flex items-center">
-        <Button variant={"outline"} size={"icon"}>
+      <div className="flex items-center gap-3">
           <Sheet>
             <SheetTrigger asChild={true}>
               <Button variant="outline" size="icon">
@@ -88,7 +88,7 @@ export const Header = () => {
               </div>
             </SheetContent>
           </Sheet>
-        </Button>
+          <Cart/>
       </div>
     </header>
   );
