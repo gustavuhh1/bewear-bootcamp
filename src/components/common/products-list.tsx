@@ -16,7 +16,7 @@ export function ProductsList({ products, title }: ProductsListProps) {
       <h3 className="px-5 font-semibold">{title}</h3>
       <div className="no-scrollbar flex w-full gap-4 overflow-x-auto px-5">
         {products.map((products) => (
-          <ProductsItem title={title} key={products.id} product={products} />
+          <ProductsItem key={products.id} product={products} />
         ))}
       </div>
     </div>
