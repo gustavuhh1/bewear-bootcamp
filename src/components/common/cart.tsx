@@ -3,13 +3,10 @@ import { Button } from "../ui/button";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
 
-const Cart = () => {
+export const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -17,17 +14,8 @@ const Cart = () => {
           <ShoppingBasketIcon />
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Are you absolutely sure?</SheetTitle>
-          <SheetDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </SheetDescription>
-        </SheetHeader>
-      </SheetContent>
+      <SheetContent></SheetContent>
     </Sheet>
   );
 };
 
-export default Cart;
