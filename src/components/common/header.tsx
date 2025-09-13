@@ -13,7 +13,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import Cart from "./cart";
+import { Cart } from "./cart";
 
 export const Header = () => {
   const { data: session } = authClient.useSession();

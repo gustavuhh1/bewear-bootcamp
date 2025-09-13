@@ -1,6 +1,5 @@
 import { Header } from "@/components/common/header";
 import { ProductsList } from "@/components/common/products-list";
-import { Button } from "@/components/ui/button";
 import { db } from "@/db";
 import { productTable, productVariantTable } from "@/db/schema";
 import { formatCentsToBRL } from "@/helpers/money";
@@ -9,7 +8,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import VariantSelector from "./components/variant-selector";
 import { Footer } from "@/components/common/footer";
-import QuantitySelector from "./components/quantity-selector";
+import { ProductActions } from "./components/product-actions";
 
 
 // TODO: Fazendo implementação do NU=Q=S para QueryParms com persistencia dos dados (product-variant, quantity)
@@ -53,7 +52,10 @@ const ProductPage = async ({ params }: ProductVariantPageProps) => {
         />
 
         <div className="px-5">
-          <VariantSelector selectedVariantSlug={productVariant.slug} variants={productVariant.product.variants}/>
+          <VariantSelector
+            selectedVariantSlug={productVariant.slug}
+            variants={productVariant.product.variants}
+          />
         </div>
 
         <div className="px-5">
@@ -68,31 +70,18 @@ const ProductPage = async ({ params }: ProductVariantPageProps) => {
           </h3>
         </div>
 
-        <div className="px-5">
-          <QuantitySelector/>
-        </div>
-
-        <div className="flex flex-col space-y-4 px-5">
-          <Button className="rounded-full" size="lg" variant="outline">
-            Compra agora
-          </Button>
-          <Button className="rounded-full" size="lg">
-            Adicionar à sacola
-          </Button>
-        </div>
+        <ProductActions productVariantId={productVariant.id}/>
 
         <div className="px-5">
           <p className="text-shadow-amber-600">
             {productVariant.product.description}
           </p>
         </div>
-
       </div>
       <div className="my-15">
         <ProductsList title="Talvez você goste" products={likelyProducts} />
-
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };
