@@ -13,15 +13,19 @@ export const getCart = async () => {
     throw new Error("Unauthorized")
   }
   const cart = await db.query.cartTable.findFirst({
-    where: (cart, {eq}) => eq(cart.userId, session.user.id),
+    where: (cart, { eq }) => eq(cart.userId, session.user.id),
     with: {
       items: {
         with: {
-          productVariant: true,
-        }
-      }
-    }
-  })
+          productVariant: {
+            with: {
+              product: true,
+            },
+          },
+        },
+      },
+    },
+  });
   if(!cart){
     const [newCart] = await db.insert(cartTable)
     .values({
@@ -31,8 +35,15 @@ export const getCart = async () => {
     return {
       ...newCart,
       items: [],
-    }
+      totalPriceInCents: 0,
+    };
   }
 
-  return cart;
-}
+   return {
+    ...cart,
+    totalPriceInCents: cart.items.reduce(
+      (acc, item) => acc + item.productVariant.priceInCents * item.quantity,
+      0,
+    ),
+  };
+};

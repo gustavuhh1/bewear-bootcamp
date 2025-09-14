@@ -36,7 +36,10 @@ export const ProductActions = ({ productVariantId }: ProductActionsProps) => {
         </div>
       </div>
       <div className="flex flex-col space-y-4 px-5">
-        <AddToCartButton productVariantId={productVariantId} quantity={1} />
+        <AddToCartButton
+          productVariantId={productVariantId}
+          quantity={quantity}
+        />
         <Button className="rounded-full" size="lg">
           Compra agora
         </Button>

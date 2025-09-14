@@ -3,16 +3,13 @@
 import { productVariantTable } from "@/db/schema";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 interface VariantSelectorProps {
   selectedVariantSlug: string;
   variants: (typeof productVariantTable.$inferInsert)[];
 }
 
-const VariantSelector = ({ variants }: VariantSelectorProps) => {
-  const { slug } = useParams();
-
+const VariantSelector = ({ variants, selectedVariantSlug }: VariantSelectorProps) => {
   return (
     <div className="flex items-center gap-4">
       {variants.map((variant) => (
@@ -20,8 +17,8 @@ const VariantSelector = ({ variants }: VariantSelectorProps) => {
           href={`/product-variant/${variant.slug}`}
           key={variant.id}
           className={
-            slug === variant.slug
-              ? "border-primary rounded-xl border border-solid"
+            selectedVariantSlug === variant.slug
+              ? "border-primary rounded-xl border-2"
               : ""
           }
         >
